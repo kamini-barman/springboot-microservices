@@ -90,6 +90,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         departmentDto.setDepartmentDescription("Research and development");
 
         EmployeeDto employeeDto = EmployeeMapper.mapToEmployeeDto(employee);
+
         APIResponseDto apiResponseDto = new APIResponseDto();
         apiResponseDto.setEmployee(employeeDto);
         apiResponseDto.setDepartment(departmentDto);
