@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import upskill.ms.departmentservice.dto.DepartmentDto;
 import upskill.ms.departmentservice.entity.Department;
+import upskill.ms.departmentservice.mapper.DepartmentMapper;
 import upskill.ms.departmentservice.repository.DepartmentRepository;
 import upskill.ms.departmentservice.service.DepartmentService;
 @Service
@@ -15,21 +16,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDto saveDepartment(DepartmentDto departmentDto) {
 
         //convert department dto to department jpa entity
-        Department department = new Department(
-                departmentDto.getId(),
-                departmentDto.getDepartmentName(),
-                departmentDto.getDepartmentDescription(),
-                departmentDto.getDepartmentCode()
-        );
+        Department department = DepartmentMapper.mapToDepartment(departmentDto);
 
        Department savedDepartment = departmentRepository.save(department);
 
-       DepartmentDto savedDepartmentDto = new DepartmentDto(
-               savedDepartment.getId(),
-               savedDepartment.getDepartmentName(),
-               savedDepartment.getDepartmentDescription(),
-               savedDepartment.getDepartmentCode()
-       );
+       DepartmentDto savedDepartmentDto = DepartmentMapper.mapToDepartmentDto(savedDepartment);
+
         return savedDepartmentDto;
     }
 
@@ -38,12 +30,8 @@ public class DepartmentServiceImpl implements DepartmentService {
 
         Department department=departmentRepository.findByDepartmentCode(departmentcode);
 
-        DepartmentDto departmentDto=new DepartmentDto(
-                department.getId(),
-                department.getDepartmentName(),
-                department.getDepartmentDescription(),
-                department.getDepartmentCode()
-        );
+        DepartmentDto departmentDto= DepartmentMapper.mapToDepartmentDto(department);
+
         return departmentDto;
     }
 }
