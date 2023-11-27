@@ -12,25 +12,26 @@ import upskill.ms.departmentservice.service.DepartmentService;
 public class DepartmentServiceImpl implements DepartmentService {
 
     private DepartmentRepository departmentRepository;
+
     @Override
     public DepartmentDto saveDepartment(DepartmentDto departmentDto) {
 
-        //convert department dto to department jpa entity
+        // convert department dto to department jpa entity
         Department department = DepartmentMapper.mapToDepartment(departmentDto);
 
-       Department savedDepartment = departmentRepository.save(department);
+        Department savedDepartment = departmentRepository.save(department);
 
-       DepartmentDto savedDepartmentDto = DepartmentMapper.mapToDepartmentDto(savedDepartment);
+        DepartmentDto savedDepartmentDto = DepartmentMapper.mapToDepartmentDto(savedDepartment);
 
         return savedDepartmentDto;
     }
 
     @Override
-    public DepartmentDto getDepartmentByCode(String departmentcode) {
+    public DepartmentDto getDepartmentByCode(String departmentCode) {
 
-        Department department=departmentRepository.findByDepartmentCode(departmentcode);
+        Department department = departmentRepository.findByDepartmentCode(departmentCode);
 
-        DepartmentDto departmentDto= DepartmentMapper.mapToDepartmentDto(department);
+        DepartmentDto departmentDto = DepartmentMapper.mapToDepartmentDto(department);
 
         return departmentDto;
     }

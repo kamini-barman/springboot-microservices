@@ -4,6 +4,7 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
 import lombok.AllArgsConstructor;
 import lombok.Setter;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(EmployeeServiceImpl.class);
     private EmployeeRepository employeeRepository;
+
+//    private ModelMapper modelMapper;
 
     //private RestTemplate restTemplate;
     private WebClient webClient;
@@ -56,7 +59,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         //      DepartmentDto departmentDto =responseEntity.getBody();
 
         DepartmentDto departmentDto = webClient.get()
-                .uri("http://localhost:3306/api/departments/" + employee.getDepartmentCode())
+                .uri("http://localhost:8080/api/departments/" + employee.getDepartmentCode())
                 .retrieve()
                 .bodyToMono(DepartmentDto.class)
                 .block();
